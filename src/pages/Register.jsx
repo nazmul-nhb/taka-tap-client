@@ -3,8 +3,10 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import useAuth from "../hooks/useAuth";
 import { useLocation, useNavigate } from "react-router-dom";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { MdEmail, MdSwitchAccount } from "react-icons/md";
+import { FaEye, FaEyeSlash, FaMobileRetro } from "react-icons/fa6";
 import { RiLockPasswordFill } from "react-icons/ri";
+import { FaUserEdit } from "react-icons/fa";
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -14,17 +16,19 @@ const Register = () => {
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
 
+    // redirect logged in user
     useEffect(() => {
         if (currentUser) {
             navigate(from, { replace: true });
         }
     }, [currentUser, from, navigate]);
 
+    // register user
     const handleRegister = async (userInfo) => {
         try {
             userInfo.account_status = 'pending';
             const res = await registerUser(userInfo);
-           
+
             if (res?.insertedId) {
                 reset();
                 toast.success("Registration Successful!");
@@ -77,7 +81,7 @@ const Register = () => {
             >
                 {/* Name */}
                 <div className="w-full flex items-center gap-2 rounded-lg bg-transparent border-transYellow border shadow-md shadow-transYellow">
-                    <label htmlFor='name' className="flex items-center gap-1 pl-2 w-24">Name</label>
+                    <label htmlFor='name' className="flex items-center gap-1 pl-2 sm:w-24"><FaUserEdit /><span className="hidden sm:inline">Name</span></label>
                     <input
                         {...register("name", {
                             required: { value: true, message: "Name is required!" }
@@ -85,17 +89,17 @@ const Register = () => {
                         name='name' id="name" type="text" placeholder="Your Name" className="px-2 rounded-r-lg py-2 w-full border-l bg-transparent focus:outline-0 text-white" />
                 </div>
 
-                {/* Pin */}
+                {/* PIN */}
                 <div className="w-full flex items-center gap-2 rounded-lg bg-transparent border-transYellow border shadow-md shadow-transYellow">
-                    <label htmlFor="pin" className="flex items-center gap-1 pl-2 w-24"><RiLockPasswordFill />PIN</label>
+                    <label htmlFor="pin" className="flex items-center gap-1 pl-2 sm:w-24"><RiLockPasswordFill /><span className="hidden sm:inline">PIN</span></label>
                     <div className="relative w-full">
                         <input
                             {...register("pin", {
-                                required: { value: true, message: "Provide a valid PIN." },
+                                required: { value: true, message: "Provide a valid PIN!" },
                                 minLength: { value: 5, message: "PIN must be 5 digits!" },
                                 maxLength: { value: 5, message: "PIN must be 5 digits!" }
                             })}
-                            className="px-2 rounded-r-lg py-2 w-full border-l bg-transparent focus:outline-0 text-white" type={showPassword ? "text" : "password"} name="pin" id="pin" placeholder="Your PIN" />
+                            className="px-2 rounded-r-lg py-2 w-full border-l bg-transparent focus:outline-0 text-white" type={showPassword ? "text" : "password"} name="pin" id="pin" placeholder="Choose a 5 digit PIN" />
                         <span className="absolute top-1/2 right-2 -translate-y-1/2 cursor-pointer" onClick={() => setShowPassword(!showPassword)}>
                             {showPassword ? <FaEyeSlash /> : <FaEye />}
                         </span>
@@ -104,7 +108,7 @@ const Register = () => {
 
                 {/* Mobile */}
                 <div className="w-full flex items-center gap-2 rounded-lg bg-transparent border-transYellow border shadow-md shadow-transYellow">
-                    <label htmlFor='mobile' className="flex items-center gap-1 pl-2 w-24">Mobile</label>
+                    <label htmlFor='mobile' className="flex items-center gap-1 pl-2 sm:w-24"><FaMobileRetro /><span className="hidden sm:inline">Mobile</span></label>
                     <input
                         {...register("mobile", {
                             required: { value: true, message: "Mobile number is required!" },
@@ -115,7 +119,7 @@ const Register = () => {
 
                 {/* Email */}
                 <div className="w-full flex items-center gap-2 rounded-lg bg-transparent border-transYellow border shadow-md shadow-transYellow">
-                    <label htmlFor='email' className="flex items-center gap-1 pl-2 w-24">Email</label>
+                    <label htmlFor='email' className="flex items-center gap-1 pl-2 sm:w-24"><MdEmail/><span className="hidden sm:inline">Email</span></label>
                     <input
                         {...register("email", {
                             required: { value: true, message: "Email is required!" },
@@ -126,7 +130,7 @@ const Register = () => {
 
                 {/* Account Type */}
                 <div className="w-full flex items-center gap-2 rounded-lg bg-transparent border-transYellow border shadow-md shadow-transYellow">
-                    <label htmlFor='account_type' className="flex items-center gap-1 pl-2 whitespace-pre w-24">Account</label>
+                    <label htmlFor='account_type' className="flex items-center gap-1 pl-2 whitespace-pre sm:w-24"><MdSwitchAccount /><span className="hidden sm:inline">Account</span></label>
                     <select
                         {...register("account_type", {
                             required: { value: true, message: "Account type is required!" }

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../hooks/useAuth";
-import { Link, useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
-import { FaEye, FaEyeSlash, FaPhone } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaMobileRetro } from "react-icons/fa6";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -16,12 +16,14 @@ const Login = () => {
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
 
+    // redirect logged in user
     useEffect(() => {
         if (currentUser) {
             navigate(from, { replace: true });
         }
     }, [currentUser, from, navigate]);
 
+    // show input errors as toasts
     useEffect(() => {
         if (errors.email) {
             toast.error(errors.email.message, { duration: 2000 });
@@ -37,6 +39,7 @@ const Login = () => {
         }
     }, [errors.email, errors.mobile, errors.pin]);
 
+    // log in user
     const handleLogin = async (userInfo) => {
         const { email, mobile, pin } = userInfo;
         const credential = useEmail ? email : mobile;
@@ -59,7 +62,7 @@ const Login = () => {
                     <div className="w-full flex items-center gap-2 rounded-lg bg-transparent border-transYellow border shadow-md shadow-transYellow">
                         {useEmail ? (
                             <>
-                                <label htmlFor="email" className="flex items-center gap-1 pl-2 w-24"><MdEmail />Email</label>
+                                <label htmlFor="email" className="flex items-center gap-1 pl-2 sm:w-24"><MdEmail /><span className="hidden sm:inline">Email</span></label>
                                 <input
                                     {...register("email", {
                                         required: { value: useEmail, message: "Provide your email address." }
@@ -68,7 +71,7 @@ const Login = () => {
                             </>
                         ) : (
                             <>
-                                <label htmlFor="mobile" className="flex items-center gap-1 pl-2 w-24"><FaPhone />Mobile</label>
+                                    <label htmlFor="mobile" className="flex items-center gap-1 pl-2 sm:w-24"><FaMobileRetro /><span className="hidden sm:inline">Mobile</span></label>
                                 <input
                                     {...register("mobile", {
                                         required: { value: !useEmail, message: "Provide your mobile number." },
@@ -86,8 +89,9 @@ const Login = () => {
                     </button>
                 </div>
 
+                {/* PIN */}
                 <div className="w-full flex items-center gap-2 rounded-lg bg-transparent border-transYellow border shadow-md shadow-transYellow">
-                    <label htmlFor="pin" className="flex items-center gap-1 pl-2 w-24"><RiLockPasswordFill />PIN</label>
+                    <label htmlFor="pin" className="flex items-center gap-1 pl-2 sm:w-24"><RiLockPasswordFill /><span className="hidden sm:inline">PIN</span></label>
                     <div className="relative w-full">
                         <input
                             {...register("pin", {

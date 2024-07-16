@@ -20,7 +20,7 @@ input[type=number] {
 /* modify arrow for the select fields */
 select {
     /* Adjust the value as needed */
-    background: url('/src/assets/down-chevron.png') no-repeat right 16px center;
+    background: url('/src/assets/down-chevron.png') no-repeat right 8px center;
     background-size: 16px;
     -webkit-appearance: none;
     -moz-appearance: none;

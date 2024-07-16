@@ -11,7 +11,7 @@ import { getColorForInitial } from '../utilities/colorGenerator';
 
 const Sidebar = ({ openSidebar, setOpenSidebar }) => {
     const { currentUser, logOut } = useAuth();
-    const color = getColorForInitial(currentUser?.name?.charAt(0) || 'A');
+    const color = getColorForInitial(currentUser?.name?.charAt(0) || 'X');
 
     const sideBarClasses = ({ isActive }) => isActive ? 'text-orange-900 font-bold flex items-center gap-2' : 'hover:text-orange-900 transition-all duration-700 flex items-center gap-2 font-semibold';
 
@@ -33,17 +33,17 @@ const Sidebar = ({ openSidebar, setOpenSidebar }) => {
             </Tooltip>
             {/* Profile */}
             <Link to='/profile'>
-                <div className={`flex ${!openSidebar && 'gap-0'} gap-2 items-center`}>
+                <div className={`flex gap-2 items-center`}>
                     {/* <img src={logo} alt="TakaTap"
                         className={`border p-[1px] userName cursor-pointer transition-all duration-700 text-4xl w-8 md:w-9 h-8 md:h-9 rounded-full ${openSidebar && "rotate-[360deg]"}`} /> */}
                     <div
                         className={`userName rounded-full aspect-square w-9 md:w-10 border-2 transition-all duration-700 flex items-center justify-center font-bold text-white text-xl ${openSidebar && "rotate-[360deg]"}`}
-                        style={{ backgroundColor: color, boxShadow: `0 4px 4px -4px ${color}` }}
+                        style={{ backgroundColor: color, boxShadow: `0 0 6px ${color}` }}
                     >
-                        <span className="block">{currentUser?.name.split(' ').map(part => part[0]).join('').toUpperCase() || 'A'}</span>
+                        <span className="block">{currentUser?.name.split(' ').map(part => part[0]).join('').toUpperCase() || 'X'}</span>
                     </div>
-                    <div className={`text-white flex-1 origin-left font-medium transition-all duration-700 whitespace-pre ${!openSidebar && "opacity-0 -translate-x-full overflow-hidden"}`}>
-                        <h3 className="text-sm md:text-xl">{currentUser?.name || "Anonymous"}</h3>
+                    <div className={`text-white overflow-x-hidden flex-1 origin-left font-medium transition-all duration-700 ${!openSidebar && "opacity-0 -translate-x-full overflow-hidden w-0"}`}>
+                        <h3 className="text-sm md:text-xl text-ellipsis">{currentUser?.name || "No User"}</h3>
                         <h4 className="text-xs first-letter:capitalize">Profile</h4>
                     </div>
                 </div>
@@ -61,7 +61,7 @@ const Sidebar = ({ openSidebar, setOpenSidebar }) => {
                             end
                         >
                             {menu.icon}
-                            <h3 className={`${!openSidebar && "opacity-0 -translate-x-full overflow-hidden"} text-sm md:text-xl origin-left whitespace-pre transition-all duration-700`}>{menu.title}</h3>
+                            <h3 className={`${!openSidebar && "opacity-0 -translate-x-full overflow-hidden w-0"} text-sm md:text-xl origin-left whitespace-pre transition-all duration-700`}>{menu.title}</h3>
                         </NavLink>
                     ))
                 }
@@ -74,7 +74,7 @@ const Sidebar = ({ openSidebar, setOpenSidebar }) => {
             className="flex items-center gap-2 font-semibold hover:text-orange-900 transition-all duration-500"
             >
                 <GiExitDoor className="text-3xl" title='Log Out' />
-                <span className={`${!openSidebar && "opacity-0 -translate-x-full overflow-hidden"} whitespace-pre text-sm md:text-xl origin-left transition-all duration-1000`}>Logout</span>
+                <span className={`${!openSidebar && "opacity-0 -translate-x-full overflow-hidden w-0"} whitespace-pre text-sm md:text-xl origin-left transition-all duration-1000`}>Logout</span>
             </button>
         </div>
     );
