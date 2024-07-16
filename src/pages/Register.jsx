@@ -1,12 +1,39 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import useAuth from "../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { registerUser, login, currentUser } = useAuth();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const navigate = useNavigate();
+    console.log(currentUser);
 
-    const handleRegister = data => {
-        console.log(data);
+    const handleRegister = async (userInfo) => {
+        try {
+            userInfo.account_status = 'pending';
+            const res = await registerUser(userInfo);
+            console.log(res);
+            if (res?.insertedId) {
+                reset();
+                toast.success("Registration Successful!");
+
+                // const credential = userInfo?.mobile || userInfo?.email;
+                // after successful registration login the user
+                const loginRes = await login(userInfo.mobile, userInfo.pin);
+                if (loginRes?.success) {
+                    toast.success(loginRes?.message);
+                    navigate('/');
+                } else {
+                    toast.error(res?.message);
+                }
+            } else {
+                toast.error(res?.message);
+            }
+        } catch (error) {
+            toast.error('Something Went Wrong!');
+        }
     };
 
     // show input errors as toasts

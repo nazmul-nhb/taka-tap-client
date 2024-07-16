@@ -22,21 +22,23 @@ const AuthProvider = ({ children }) => {
     }, []);
 
     // register function
-    const register = async (user) => {
+    const registerUser = async (user) => {
         try {
             const { data } = await axiosPublic.post(`/auth/register`, user);
+            // console.log(data);
             return data;
         } catch (error) {
             toast.error("Registration Error!");
         }
     };
 
-    const login = async (username, password) => {
+    console.log(currentUser);
+    const login = async (credential, pin) => {
         try {
-            const { data } = await axiosPublic.post(`/auth/login`, { username, password });
-            if (data.success) {
-                localStorage.setItem('taka-token', data.token);
-                const decodedUser = jwtDecode(data.token);
+            const { data } = await axiosPublic.post(`/auth/login`, { credential, pin });
+            if (data?.success) {
+                localStorage.setItem('taka-token', data?.token);
+                const decodedUser = jwtDecode(data?.token);
                 setCurrentUser(decodedUser);
                 return data
             } else {
@@ -53,8 +55,7 @@ const AuthProvider = ({ children }) => {
         toast.success("Logged Out Successfully!");
     };
 
-
-    const authInfo = { currentUser, userLoading, register, login, logOut };
+    const authInfo = { currentUser, userLoading, registerUser, login, logOut };
 
     return (
         <AuthContext.Provider value={authInfo}>
