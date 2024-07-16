@@ -7,11 +7,11 @@ const Root = () => {
 
     return (
         <main className="max-w-[1920px] h-screen mx-auto bg-takaBG bg-fixed bg-center bg-cover bg-no-repeat text-white overflow-x-hidden overflow-y-auto taka-scrollbar">
-            <div className="flex items-start h-full justify-start gap-4">
+            <div className="flex items-start h-full justify-start">
                 <div className="h-screen">
                     <Sidebar openSidebar={openSidebar} setOpenSidebar={setOpenSidebar} />
                 </div>
-                <div className={`flex-1 mx-auto h-screen w-ful ${openSidebar ? 'overflow-x-hidden' : 'overflow-x-auto'}`}>
+                <div className={`flex-1 mx-auto h-screen w-full ${openSidebar ? 'overflow-x-hidden' : 'overflow-x-auto'}`}>
                     <Outlet />
                 </div>
             </div>

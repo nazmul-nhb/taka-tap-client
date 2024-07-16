@@ -14,7 +14,16 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <QueryClientProvider client={queryClient}>
         <HelmetProvider>
           <RouterProvider router={router} />
-          <Toaster/>
+        <Toaster
+          toastOptions={{
+            style: {
+              background: '#f15d24de',
+              color: 'white',
+              fontWeight:'600',
+              boxShadow: '0px 0px 4px 4px #f9991dce'
+            }
+          }}
+        />
         </HelmetProvider>
       </QueryClientProvider>
   </React.StrictMode>

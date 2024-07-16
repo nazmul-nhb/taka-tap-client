@@ -6,6 +6,11 @@ export default {
   ],
   theme: {
     extend: {
+      colors: {
+        transOrange: '#f15d24be',
+        transYellow: '#f9991dce',
+        takaOrange: '#f15d24',
+      },
       backgroundImage: {
         takaBG: 'url("/src/assets/golden.svg")',
         takaGradient: 'linear-gradient(110deg, #faa31c 0%, #f57921 50%, #f15b24 100%)',
