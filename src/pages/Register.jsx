@@ -1,25 +1,34 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import useAuth from "../hooks/useAuth";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { RiLockPasswordFill } from "react-icons/ri";
 
 const Register = () => {
+    const [showPassword, setShowPassword] = useState(false);
     const { registerUser, login, currentUser } = useAuth();
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const navigate = useNavigate();
-    console.log(currentUser);
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
+
+    useEffect(() => {
+        if (currentUser) {
+            navigate(from, { replace: true });
+        }
+    }, [currentUser, from, navigate]);
 
     const handleRegister = async (userInfo) => {
         try {
             userInfo.account_status = 'pending';
             const res = await registerUser(userInfo);
-            console.log(res);
+           
             if (res?.insertedId) {
                 reset();
                 toast.success("Registration Successful!");
 
-                // const credential = userInfo?.mobile || userInfo?.email;
                 // after successful registration login the user
                 const loginRes = await login(userInfo.mobile, userInfo.pin);
                 if (loginRes?.success) {
@@ -78,13 +87,19 @@ const Register = () => {
 
                 {/* Pin */}
                 <div className="w-full flex items-center gap-2 rounded-lg bg-transparent border-transYellow border shadow-md shadow-transYellow">
-                    <label htmlFor='pin' className="flex items-center gap-1 pl-2 w-24">PIN</label>
-                    <input
-                        {...register("pin", {
-                            required: { value: true, message: "Pin is required!" },
-                            pattern: { value: /^\d{5}$/, message: "Pin must be 5 digits!" }
-                        })}
-                        name='pin' id="pin" type="number" placeholder="Your Pin" className="px-2 rounded-r-lg py-2 w-full border-l bg-transparent focus:outline-0 text-white" />
+                    <label htmlFor="pin" className="flex items-center gap-1 pl-2 w-24"><RiLockPasswordFill />PIN</label>
+                    <div className="relative w-full">
+                        <input
+                            {...register("pin", {
+                                required: { value: true, message: "Provide a valid PIN." },
+                                minLength: { value: 5, message: "PIN must be 5 digits!" },
+                                maxLength: { value: 5, message: "PIN must be 5 digits!" }
+                            })}
+                            className="px-2 rounded-r-lg py-2 w-full border-l bg-transparent focus:outline-0 text-white" type={showPassword ? "text" : "password"} name="pin" id="pin" placeholder="Your PIN" />
+                        <span className="absolute top-1/2 right-2 -translate-y-1/2 cursor-pointer" onClick={() => setShowPassword(!showPassword)}>
+                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                        </span>
+                    </div>
                 </div>
 
                 {/* Mobile */}

@@ -1,5 +1,5 @@
 export const getColorForInitial = (initial) => {
-    // assign colors based on the ASCII value of the letter
+    // Assign colors based on the ASCII value of the letter
     const colorPalette = [
         '#132dee', // A - Deep blue
         '#1E90FF', // B - Dodger blue
