@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const onSubmit = data => {
+    const handleRegister = data => {
         console.log(data);
     };
 
@@ -36,12 +36,12 @@ const Register = () => {
     return (
         <section className="m-8">
             <form
-                onSubmit={handleSubmit(onSubmit)}
+                onSubmit={handleSubmit(handleRegister)}
                 className="flex flex-col gap-5 items-center justify-between w-full mx-auto bg-transOrange p-6 rounded-md shadow-md shadow-transYellow"
             >
                 {/* Name */}
                 <div className="w-full flex items-center gap-2 rounded-lg bg-transparent border-transYellow border shadow-md shadow-transYellow">
-                    <label htmlFor='name' className="flex items-center gap-1 pl-2">Name</label>
+                    <label htmlFor='name' className="flex items-center gap-1 pl-2 w-24">Name</label>
                     <input
                         {...register("name", {
                             required: { value: true, message: "Name is required!" }
@@ -51,7 +51,7 @@ const Register = () => {
 
                 {/* Pin */}
                 <div className="w-full flex items-center gap-2 rounded-lg bg-transparent border-transYellow border shadow-md shadow-transYellow">
-                    <label htmlFor='pin' className="flex items-center gap-1 pl-2">PIN</label>
+                    <label htmlFor='pin' className="flex items-center gap-1 pl-2 w-24">PIN</label>
                     <input
                         {...register("pin", {
                             required: { value: true, message: "Pin is required!" },
@@ -62,7 +62,7 @@ const Register = () => {
 
                 {/* Mobile */}
                 <div className="w-full flex items-center gap-2 rounded-lg bg-transparent border-transYellow border shadow-md shadow-transYellow">
-                    <label htmlFor='mobile' className="flex items-center gap-1 pl-2">Mobile</label>
+                    <label htmlFor='mobile' className="flex items-center gap-1 pl-2 w-24">Mobile</label>
                     <input
                         {...register("mobile", {
                             required: { value: true, message: "Mobile number is required!" },
@@ -73,7 +73,7 @@ const Register = () => {
 
                 {/* Email */}
                 <div className="w-full flex items-center gap-2 rounded-lg bg-transparent border-transYellow border shadow-md shadow-transYellow">
-                    <label htmlFor='email' className="flex items-center gap-1 pl-2">Email</label>
+                    <label htmlFor='email' className="flex items-center gap-1 pl-2 w-24">Email</label>
                     <input
                         {...register("email", {
                             required: { value: true, message: "Email is required!" },
@@ -84,14 +84,14 @@ const Register = () => {
 
                 {/* Account Type */}
                 <div className="w-full flex items-center gap-2 rounded-lg bg-transparent border-transYellow border shadow-md shadow-transYellow">
-                    <label htmlFor='account_type' className="flex items-center gap-1 pl-2 whitespace-pre">Account Type</label>
+                    <label htmlFor='account_type' className="flex items-center gap-1 pl-2 whitespace-pre w-24">Account</label>
                     <select
                         {...register("account_type", {
                             required: { value: true, message: "Account type is required!" }
                         })}
                         name='account_type' id="account_type" className="px-2 rounded-r-lg py-2 w-full border-l bg-transOrange focus:outline-0 text-white"
                     >
-                        <option value="">Select Account Type</option>
+                        <option className="text-gray-300" value="">Select Account Type</option>
                         <option value="user">User</option>
                         <option value="agent">Agent</option>
                     </select>
