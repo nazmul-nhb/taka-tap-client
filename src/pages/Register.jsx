@@ -26,7 +26,7 @@ const Register = () => {
                     toast.success(loginRes?.message);
                     navigate('/');
                 } else {
-                    toast.error(res?.message);
+                    toast.error(loginRes?.message);
                 }
             } else {
                 toast.error(res?.message);

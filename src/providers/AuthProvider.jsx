@@ -25,9 +25,9 @@ const AuthProvider = ({ children }) => {
     const registerUser = async (user) => {
         try {
             const { data } = await axiosPublic.post(`/auth/register`, user);
-            // console.log(data);
             return data;
         } catch (error) {
+            console.error(error);
             toast.error("Registration Error!");
         }
     };
@@ -45,14 +45,19 @@ const AuthProvider = ({ children }) => {
                 return data
             }
         } catch (error) {
+            console.error(error);
             toast.error("Login Error!");
         }
     };
 
     const logOut = () => {
-        localStorage.removeItem('taka-token');
-        setCurrentUser(null);
-        toast.success("Logged Out Successfully!");
+        if (currentUser) {
+            localStorage.removeItem('taka-token');
+            setCurrentUser(null);
+            toast.success("Logged Out Successfully!");
+        } else{
+            toast.error("No User Logged In!");
+        }
     };
 
     const authInfo = { currentUser, userLoading, registerUser, login, logOut };
