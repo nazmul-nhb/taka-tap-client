@@ -12,7 +12,7 @@ const Sidebar = ({ openSidebar, setOpenSidebar }) => {
     const sideBarClasses = ({ isActive }) => isActive ? 'text-orange-900 font-bold flex items-center gap-2' : 'hover:text-orange-900 transition-all duration-700 flex items-center gap-2 font-semibold';
 
     const sidebarMenus = [
-        { icon: <RiHomeGearFill className="text-3xl" />, link: '/dashboard', title: 'Home' },
+        { icon: <RiHomeGearFill className="text-3xl" />, link: '/', title: 'Home' },
         { icon: <GiMoneyStack className="text-3xl" />, link: '/cash-in', title: 'Cash-in' },
         { icon: <GiReceiveMoney className="text-3xl" />, link: '/cash-out', title: 'Cash Out' },
         { icon: <GiTakeMyMoney className="text-3xl" />, link: '/send-money', title: 'Send Money' },
@@ -23,7 +23,7 @@ const Sidebar = ({ openSidebar, setOpenSidebar }) => {
         <div className={`${openSidebar ? "w-64" : "w-16"} h-screen whitespace-nowrap p-2 pt-6 relative transition-all duration-300 bg-takaGradient shadow-md shadow-orange-300`}>
 
             {/* sidebar control */}
-            <IoIosArrowDropleftCircle className={`absolute cursor-pointer -right-3 top-7 w-7 text-4xl ${!openSidebar && "rotate-180"}`} onClick={() => setOpenSidebar(!openSidebar)} />
+            <IoIosArrowDropleftCircle className={`absolute cursor-pointer -right-3 top-7 w-7 text-4xl transition-all duration-1000 ${!openSidebar && "rotate-180"}`} onClick={() => setOpenSidebar(!openSidebar)} />
             <Tooltip anchorSelect=".userName" place="bottom-end">
                 TakaTap
             </Tooltip>
