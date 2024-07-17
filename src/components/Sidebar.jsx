@@ -34,8 +34,6 @@ const Sidebar = ({ openSidebar, setOpenSidebar }) => {
             {/* Profile */}
             <Link to='/profile'>
                 <div className={`flex gap-2 items-center`}>
-                    {/* <img src={logo} alt="TakaTap"
-                        className={`border p-[1px] userName cursor-pointer transition-all duration-700 text-4xl w-8 md:w-9 h-8 md:h-9 rounded-full ${openSidebar && "rotate-[360deg]"}`} /> */}
                     <div
                         className={`userName rounded-full aspect-square w-9 md:w-10 border-2 transition-all duration-700 flex items-center justify-center font-bold text-white text-xl ${openSidebar && "rotate-[360deg]"}`}
                         style={{ backgroundColor: color, boxShadow: `0 0 6px ${color}` }}
@@ -71,7 +69,7 @@ const Sidebar = ({ openSidebar, setOpenSidebar }) => {
 
             <button
                 onClick={logOut}
-            className="flex items-center gap-2 font-semibold hover:text-orange-900 transition-all duration-500"
+                className="flex items-center gap-2 font-semibold hover:text-orange-900 transition-all duration-500"
             >
                 <GiExitDoor className="text-3xl" title='Log Out' />
                 <span className={`${!openSidebar && "opacity-0 -translate-x-full overflow-hidden w-0"} whitespace-pre text-sm md:text-xl origin-left transition-all duration-1000`}>Logout</span>

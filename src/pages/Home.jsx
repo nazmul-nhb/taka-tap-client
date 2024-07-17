@@ -1,8 +1,11 @@
+import useGetUserType from "../hooks/useGetUserType";
 
 const Home = () => {
+    const { userType } = useGetUserType();
+
     return (
         <section>
-            Hello from Home!
+            {userType}
         </section>
     );
 };
