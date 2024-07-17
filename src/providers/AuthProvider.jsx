@@ -32,7 +32,8 @@ const AuthProvider = ({ children }) => {
         }
     };
 
-    console.log(currentUser);
+    // console.log(currentUser);
+    
     const login = async (credential, pin) => {
         try {
             const { data } = await axiosPublic.post(`/auth/login`, { credential, pin });

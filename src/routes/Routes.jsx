@@ -8,6 +8,7 @@ import CashOut from "../pages/CashOut";
 import SendMoney from "../pages/SendMoney";
 import Transactions from "../pages/Transactions";
 import Profile from "../pages/Profile";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
     {
@@ -16,35 +17,35 @@ export const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                element: <Home />
+                element: <PrivateRoute> <Home /> </PrivateRoute>
             },
             {
-                path:'/register',
-                element: <Register/>
+                path: '/register',
+                element: <Register />
             },
             {
-                path:'/login',
-                element: <Login/>
+                path: '/login',
+                element: <Login />
             },
             {
-                path:'/cash-in',
-                element: <CashIn/>
+                path: '/cash-in',
+                element: <PrivateRoute> <CashIn /> </PrivateRoute>
             },
             {
-                path:'/cash-out',
-                element: <CashOut/>
+                path: '/cash-out',
+                element: <PrivateRoute> <CashOut /> </PrivateRoute>
             },
             {
-                path:'/send-money',
-                element: <SendMoney/>
+                path: '/send-money',
+                element: <PrivateRoute> <SendMoney /> </PrivateRoute>
             },
             {
-                path:'/transactions',
-                element: <Transactions/>
+                path: '/transactions',
+                element: <PrivateRoute> <Transactions /> </PrivateRoute>
             },
             {
-                path:'/profile',
-                element: <Profile/>
+                path: '/profile',
+                element: <PrivateRoute> <Profile /> </PrivateRoute>
             },
         ]
     },
