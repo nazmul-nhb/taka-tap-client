@@ -9,6 +9,8 @@ import SendMoney from "../pages/SendMoney";
 import Transactions from "../pages/Transactions";
 import Profile from "../pages/Profile";
 import PrivateRoute from "./PrivateRoute";
+import ManageUsers from "../pages/ManageUsers";
+import AdminRoute from "./AdminRoute";
 
 export const router = createBrowserRouter([
     {
@@ -46,6 +48,10 @@ export const router = createBrowserRouter([
             {
                 path: '/profile',
                 element: <PrivateRoute> <Profile /> </PrivateRoute>
+            },
+            {
+                path: '/manage-users',
+                element: <AdminRoute><PrivateRoute> <ManageUsers /> </PrivateRoute></AdminRoute>
             },
         ]
     },

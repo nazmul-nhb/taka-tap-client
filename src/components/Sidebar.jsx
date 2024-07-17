@@ -8,9 +8,12 @@ import { Tooltip } from "react-tooltip";
 import { MdManageHistory } from 'react-icons/md';
 import useAuth from '../hooks/useAuth';
 import { getColorForInitial } from '../utilities/colorGenerator';
+import { FaUsersGear } from 'react-icons/fa6';
+import useGetUserType from '../hooks/useGetUserType';
 
 const Sidebar = ({ openSidebar, setOpenSidebar }) => {
     const { currentUser, logOut } = useAuth();
+    const { userType } = useGetUserType();
     const color = getColorForInitial(currentUser?.name?.charAt(0) || 'X');
 
     const sideBarClasses = ({ isActive }) => isActive ? 'text-orange-900 font-bold flex items-center gap-2' : 'hover:text-orange-900 transition-all duration-700 flex items-center gap-2 font-semibold';
@@ -21,6 +24,7 @@ const Sidebar = ({ openSidebar, setOpenSidebar }) => {
         { icon: <GiReceiveMoney className="text-3xl" />, link: '/cash-out', title: 'Cash Out' },
         { icon: <GiTakeMyMoney className="text-3xl" />, link: '/send-money', title: 'Send Money' },
         { icon: <MdManageHistory className="text-3xl" />, link: '/transactions', title: 'Transaction History' },
+        userType === 'admin' && { icon: <FaUsersGear className="text-3xl" />, link: '/manage-users', title: 'Manage Users' },
     ];
 
     return (
@@ -35,10 +39,12 @@ const Sidebar = ({ openSidebar, setOpenSidebar }) => {
             <Link to='/profile'>
                 <div className={`flex gap-2 items-center`}>
                     <div
-                        className={`userName rounded-full aspect-square w-9 md:w-10 border-2 transition-all duration-700 flex items-center justify-center font-bold text-white text-xl ${openSidebar && "rotate-[360deg]"}`}
+                        className={`userName rounded-full aspect-square w-9 md:w-10 border-2 transition-all duration-700 flex items-center justify-center font-bold text-white text-lg ${openSidebar && "rotate-[360deg]"}`}
                         style={{ backgroundColor: color, boxShadow: `0 0 6px ${color}` }}
                     >
-                        <span className="block">{currentUser?.name.split(' ').map(part => part[0]).join('').toUpperCase() || 'X'}</span>
+                        <span className="block">
+                            {currentUser?.name.split(' ').slice(0, 2).map(part => part[0]).join('').toUpperCase() || 'X'}
+                        </span>
                     </div>
                     <div className={`text-white overflow-x-hidden flex-1 origin-left font-medium transition-all duration-700 ${!openSidebar && "opacity-0 -translate-x-full overflow-hidden w-0"}`}>
                         <h3 className="text-sm md:text-xl text-ellipsis">{currentUser?.name || "No User"}</h3>
