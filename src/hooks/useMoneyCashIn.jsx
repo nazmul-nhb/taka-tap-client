@@ -6,15 +6,14 @@ const useMoneyCashIn = () => {
     const axiosSecure = useAxiosSecure();
 
     /**
-     * Make a cash in.
+     * Make a cash in request successful!
      *
-     * @param {string} amount - Cash in amount.
-     * @param {object} transactionInfo - Transaction info as { agent, cash_in_time }.
+     * @param {object} transactionInfo - Transaction info must have: { amount, agent, cash_in_time }.
      */
 
-    const moneyCashIn = (amount, transactionInfo) => {
+    const moneyCashIn = (transactionInfo) => {
 
-        axiosSecure.post(`/transactions/in/${amount}`, transactionInfo)
+        axiosSecure.post(`/transactions/in`, transactionInfo)
             .then(res => {
                 if (res?.success) {
                     toast.success(res?.message);

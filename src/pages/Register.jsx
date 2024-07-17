@@ -7,6 +7,7 @@ import { MdEmail, MdSwitchAccount } from "react-icons/md";
 import { FaEye, FaEyeSlash, FaMobileRetro } from "react-icons/fa6";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { FaUserEdit } from "react-icons/fa";
+import moment from "moment";
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -27,20 +28,23 @@ const Register = () => {
     const handleRegister = async (userInfo) => {
         try {
             userInfo.account_status = 'pending';
+            userInfo.user_since = moment().format("YYYY-MM-DD HH:mm:ss");
+
             const res = await registerUser(userInfo);
 
             if (res?.insertedId) {
                 reset();
                 toast.success("Registration Successful!");
+                toast.success("Wait for Admin Approval!");
 
-                // after successful registration login the user
-                const loginRes = await login(userInfo.mobile, userInfo.pin);
-                if (loginRes?.success) {
-                    toast.success(loginRes?.message);
-                    navigate('/');
-                } else {
-                    toast.error(loginRes?.message);
-                }
+                // // after successful registration login the user
+                // const loginRes = await login(userInfo.mobile, userInfo.pin);
+                // if (loginRes?.success) {
+                //     toast.success(loginRes?.message);
+                //     navigate('/');
+                // } else {
+                //     toast.error(loginRes?.message);
+                // }
             } else {
                 toast.error(res?.message);
             }
@@ -119,7 +123,7 @@ const Register = () => {
 
                 {/* Email */}
                 <div className="w-full flex items-center gap-2 rounded-lg bg-transparent border-transYellow border shadow-md shadow-transYellow">
-                    <label htmlFor='email' className="flex items-center gap-1 pl-2 sm:w-24"><MdEmail/><span className="hidden sm:inline">Email</span></label>
+                    <label htmlFor='email' className="flex items-center gap-1 pl-2 sm:w-24"><MdEmail /><span className="hidden sm:inline">Email</span></label>
                     <input
                         {...register("email", {
                             required: { value: true, message: "Email is required!" },

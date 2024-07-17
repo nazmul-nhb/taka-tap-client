@@ -1,9 +1,9 @@
 
 const CashIn = () => {
     return (
-        <div>
+        <section>
             Hello from Cash-in!
-        </div>
+        </section>
     );
 };
 
