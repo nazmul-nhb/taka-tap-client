@@ -2,14 +2,14 @@ import useAxiosSecure from "./useAxiosSecure"
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 
-const useCashIn = () => {
+const useMoneyCashIn = () => {
     const axiosSecure = useAxiosSecure();
 
     /**
      * Make a cash in.
      *
      * @param {string} amount - Cash in amount.
-     * @param {object} transactionInfo { agent, cash_in_time } - Transaction info.
+     * @param {object} transactionInfo - Transaction info as { agent, cash_in_time }.
      */
 
     const moneyCashIn = (amount, transactionInfo) => {
@@ -40,4 +40,4 @@ const useCashIn = () => {
     return moneyCashIn;
 };
 
-export default useCashIn;
+export default useMoneyCashIn;
