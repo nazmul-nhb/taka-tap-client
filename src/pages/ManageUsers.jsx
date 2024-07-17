@@ -60,14 +60,14 @@ const ManageUsers = () => {
             cell: (cell) => {
                 return (<>{
                     cell.row.original.account_status === 'pending'
-                        ? <h3 className="flex items-center gap-1 font-bold text-lg text-green-700 mx-auto justify-center">
+                        ? <h3 className="flex items-center gap-1 font-bold text-lg text-green-100 mx-auto justify-center">
                             <MdOutlinePendingActions /> Pending
                         </h3>
                         : cell.row.original.account_status === 'blocked'
-                            ? <h3 className="flex items-center gap-1 font-bold text-lg text-green-700 mx-auto justify-center">
+                            ? <h3 className="flex items-center gap-1 font-bold text-lg text-red-700 mx-auto justify-center">
                                 <MdBlock /> Blocked
                             </h3>
-                            : <h3 className="flex items-center gap-1 font-bold text-lg text-green-700 mx-auto justify-center">
+                            : <h3 className="flex items-center gap-1 font-bold text-lg text-green-900 mx-auto justify-center">
                                 <FaUserCheck /> Active
                             </h3>
                 }</>)
@@ -75,13 +75,13 @@ const ManageUsers = () => {
         },
         {
             header: 'Action',
-            accessorKey: 'account_status',
+            accessorKey: 'account_type',
             cell: (cell) => {
                 const { name, email } = cell.row.original;
                 return (<>{
                     cell.row.original.account_status === 'pending' || cell.row.original.account_status === 'blocked'
-                        ? <button className={`flex items-center gap-0.5 border border-takaOrange px-3 py-0.5 rounded-3xl text-takaOrange hover:text-white hover:bg-takaOrange font-bold text-lg transition-all duration-500 mx-auto`} onClick={() => handleActivateUser(name, email)}><MdVerifiedUser /> Activate</button>
-                        : <button className={`flex items-center gap-0.5 border border-takaOrange px-3 py-0.5 rounded-3xl text-takaOrange hover:text-white hover:bg-takaOrange font-bold text-lg transition-all duration-500 mx-auto`} onClick={() => handleBlockUser(name, email)}><MdBlock /> Block</button>
+                        ? <button className={`flex items-center gap-0.5 border border-green-900 px-3 py-0.5 rounded-3xl text-green-900 hover:text-white hover:bg-green-900 font-bold text-lg transition-all duration-500 mx-auto`} onClick={() => handleActivateUser(name, email)}><MdVerifiedUser /> Activate</button>
+                        : <button className={`flex items-center gap-0.5 border border-red-900 px-3 py-0.5 rounded-3xl text-red-900 hover:text-white hover:bg-red-900 font-bold text-lg transition-all duration-500 mx-auto`} onClick={() => handleBlockUser(name, email)}><MdBlock /> Block</button>
                 }</>)
             }
         }
@@ -90,7 +90,7 @@ const ManageUsers = () => {
     if (isLoading) return <Loader/>;
 
     return (
-        <section className="m-8">
+        <section className="m-4 md:m-8">
             <TakaTable data={userData} columns={userColumns} />
         </section>
     );

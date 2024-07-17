@@ -4,7 +4,7 @@ import { RiHomeGearFill } from "react-icons/ri";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 import { GiExitDoor, GiMoneyStack, GiReceiveMoney, GiTakeMyMoney } from "react-icons/gi";
 import { Tooltip } from "react-tooltip";
-// import logo from "../assets/logo.png";
+import logo from "../assets/logo.png";
 import { MdManageHistory } from 'react-icons/md';
 import useAuth from '../hooks/useAuth';
 import { getColorForInitial } from '../utilities/colorGenerator';
@@ -36,22 +36,33 @@ const Sidebar = ({ openSidebar, setOpenSidebar }) => {
                 {currentUser?.name || "No User"}
             </Tooltip>
             {/* Profile */}
-            <Link to='/profile'>
-                <div className={`flex gap-2 items-center`}>
-                    <div
-                        className={`userName rounded-full aspect-square w-9 md:w-10 border-2 transition-all duration-700 flex items-center justify-center font-bold text-white text-lg ${openSidebar && "rotate-[360deg]"}`}
-                        style={{ backgroundColor: color, boxShadow: `0 0 6px ${color}` }}
-                    >
-                        <span className="block">
-                            {currentUser?.name.split(' ').slice(0, 2).map(part => part[0]).join('').toUpperCase() || 'X'}
-                        </span>
+            {userType !== 'admin'
+                ? <Link to='/profile'>
+                    <div className={`flex gap-2 items-center`}>
+                        <div
+                            className={`userName rounded-full aspect-square w-9 md:w-10 border-2 transition-all duration-700 flex items-center justify-center font-bold text-white text-lg ${openSidebar && "rotate-[360deg]"}`}
+                            style={{ backgroundColor: color, boxShadow: `0 0 6px ${color}` }}
+                        >
+                            <span className="block">
+                                {currentUser?.name.split(' ').slice(0, 2).map(part => part[0]).join('').toUpperCase() || 'X'}
+                            </span>
+                        </div>
+                        <div className={`text-white overflow-x-hidden flex-1 origin-left font-medium transition-all duration-700 ${!openSidebar && "opacity-0 -translate-x-full overflow-hidden w-0"}`}>
+                            <h3 className="text-sm md:text-xl text-ellipsis">{currentUser?.name || "No User"}</h3>
+                            <h4 className="text-xs first-letter:capitalize">Profile</h4>
+                        </div>
                     </div>
+                </Link>
+                : <div className={`flex gap-2 items-center`}>
+                    <img src={logo} alt={currentUser?.name}
+                        className={`bg-[#ffffffbf] border p-[1px] userName transition-all transform duration-500 text-4xl w-8 md:w-9 h-8 md:h-9 rounded-full ${openSidebar && "rotate-[360deg]"}`} />
+
                     <div className={`text-white overflow-x-hidden flex-1 origin-left font-medium transition-all duration-700 ${!openSidebar && "opacity-0 -translate-x-full overflow-hidden w-0"}`}>
-                        <h3 className="text-sm md:text-xl text-ellipsis">{currentUser?.name || "No User"}</h3>
-                        <h4 className="text-xs first-letter:capitalize">Profile</h4>
+                        <h3 className="text-sm md:text-xl text-ellipsis">{currentUser?.name}</h3>
+                        <h4 className="text-xs first-letter:capitalize">Admin</h4>
                     </div>
                 </div>
-            </Link>
+            }
             <hr className="my-4" />
             <ul className="flex flex-col gap-4 items-start">
                 {

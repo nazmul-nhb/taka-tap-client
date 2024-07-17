@@ -6,12 +6,12 @@
 }
 
 .taka-table {
-    border: 1px solid #6897bb
+    border: 1px solid #cb4916d2
 }
 
 .taka-table tr {
-    border-bottom: 1px solid #95a7ea;
-    border-left: 1px solid #6897bb
+    border-bottom: 1px solid #f15d24be;
+    border-left: 1px solid #f15d24be
 }
 
 /* 
@@ -21,7 +21,11 @@
 */
 
 .taka-table tr:nth-child(even) {
-    background-color: #b6d1e488
+    background-color: #f17443cf
+}
+
+.taka-table tr:nth-child(odd) {
+    background-color: #f79618cf
 }
 
 .taka-table th {
@@ -29,7 +33,7 @@
     display: table-cell;
     text-align: left;
     vertical-align: center;
-    border-left: 1px solid #e1e5f18d
+    border-left: 1px solid #f2d6cbbe
 }
 
 .taka-table th:nth-last-child(-n+2),
@@ -42,7 +46,7 @@
     display: table-cell;
     text-align: left;
     vertical-align: center;
-    border-left: 1px solid #6897bb
+    border-left: 1px solid #f6b499d6
 }
 
 .taka-table th:first-child,
