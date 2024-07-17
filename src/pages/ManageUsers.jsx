@@ -4,9 +4,12 @@ import useAxiosSecure from "../hooks/useAxiosSecure";
 import { MdBlock, MdOutlinePendingActions, MdVerifiedUser } from "react-icons/md";
 import { FaUserCheck } from "react-icons/fa6";
 import TakaTable from "../components/TakaTable";
+import useUpdateUser from "../hooks/useUpdateUser";
+import Loader from "../shared/Loader";
 
 const ManageUsers = () => {
     const axiosSecure = useAxiosSecure();
+    const updateUser = useUpdateUser();
 
     const { isLoading, data: users = [], refetch } = useQuery({
         queryKey: ['users'],
@@ -17,11 +20,17 @@ const ManageUsers = () => {
     });
 
     const handleActivateUser = (name, email) => {
-        console.log(name, email);
+        const user = { account_status: 'active' };
+        const msg=`${name}'s Account is Activated!`;
+
+        updateUser(email, user, msg, refetch);
     }
 
     const handleBlockUser = (name, email) => {
-        console.log(name, email);
+        const user = { account_status: 'blocked' };
+        const msg = `${name}'s Account is Blocked!`;
+
+        updateUser(email, user, msg, refetch);
     }
 
     const usersWithSerial = users?.map((user, index) => ({ ...user, serial: index + 1 }));
@@ -77,6 +86,8 @@ const ManageUsers = () => {
             }
         }
     ]
+
+    if (isLoading) return <Loader/>;
 
     return (
         <section className="m-8">
