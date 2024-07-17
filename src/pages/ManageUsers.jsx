@@ -19,9 +19,16 @@ const ManageUsers = () => {
         }
     });
 
-    const handleActivateUser = (name, email) => {
+    const handleActivateUser = (name, email, type) => {
+        const user = { account_status: 'active', balance: type==='user' ? 40 : 10000};
+        const msg = `${name}'s Account is Activated!`;
+
+        updateUser(email, user, msg, refetch);
+    }
+
+    const handleUnblockUser = (name, email) => {
         const user = { account_status: 'active' };
-        const msg=`${name}'s Account is Activated!`;
+        const msg = `${name}'s Account is Unblocked!`;
 
         updateUser(email, user, msg, refetch);
     }
@@ -77,17 +84,19 @@ const ManageUsers = () => {
             header: 'Action',
             accessorKey: 'account_type',
             cell: (cell) => {
-                const { name, email } = cell.row.original;
+                const { name, email, account_type } = cell.row.original;
                 return (<>{
-                    cell.row.original.account_status === 'pending' || cell.row.original.account_status === 'blocked'
-                        ? <button className={`flex items-center gap-0.5 border border-green-900 px-3 py-0.5 rounded-3xl text-green-900 hover:text-white hover:bg-green-900 font-bold text-lg transition-all duration-500 mx-auto`} onClick={() => handleActivateUser(name, email)}><MdVerifiedUser /> Activate</button>
-                        : <button className={`flex items-center gap-0.5 border border-red-900 px-3 py-0.5 rounded-3xl text-red-900 hover:text-white hover:bg-red-900 font-bold text-lg transition-all duration-500 mx-auto`} onClick={() => handleBlockUser(name, email)}><MdBlock /> Block</button>
+                    cell.row.original.account_status === 'blocked'
+                        ? <button className={`flex items-center gap-0.5 border border-green-900 px-3 py-0.5 rounded-3xl text-green-900 hover:text-white hover:bg-green-900 font-bold text-lg transition-all duration-500 mx-auto`} onClick={() => handleUnblockUser(name, email)}><MdVerifiedUser /> Unblock</button>
+                        : cell.row.original.account_status === 'pending'
+                            ? <button className={`flex items-center gap-0.5 border border-green-900 px-3 py-0.5 rounded-3xl text-green-900 hover:text-white hover:bg-green-900 font-bold text-lg transition-all duration-500 mx-auto`} onClick={() => handleActivateUser(name, email, account_type)}><MdVerifiedUser /> Activate</button>
+                            : <button className={`flex items-center gap-0.5 border border-red-900 px-3 py-0.5 rounded-3xl text-red-900 hover:text-white hover:bg-red-900 font-bold text-lg transition-all duration-500 mx-auto`} onClick={() => handleBlockUser(name, email)}><MdBlock /> Block</button>
                 }</>)
             }
         }
     ]
 
-    if (isLoading) return <Loader/>;
+    if (isLoading) return <Loader />;
 
     return (
         <section className="m-4 md:m-8">
