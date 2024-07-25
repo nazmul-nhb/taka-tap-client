@@ -20,25 +20,25 @@ const ManageUsers = () => {
     });
 
     const handleActivateUser = (name, email, type) => {
-        const user = { account_status: 'active', balance: type==='user' ? 40 : 10000};
+        const user = { account_status: 'active', balance: type === 'user' ? 40 : 10000 };
         const msg = `${name}'s Account is Activated!`;
 
         updateUser(email, user, msg, refetch);
-    }
+    };
 
     const handleUnblockUser = (name, email) => {
         const user = { account_status: 'active' };
         const msg = `${name}'s Account is Unblocked!`;
 
         updateUser(email, user, msg, refetch);
-    }
+    };
 
     const handleBlockUser = (name, email) => {
         const user = { account_status: 'blocked' };
         const msg = `${name}'s Account is Blocked!`;
 
         updateUser(email, user, msg, refetch);
-    }
+    };
 
     const usersWithSerial = users?.map((user, index) => ({ ...user, serial: index + 1 }));
     const userData = useMemo(() => usersWithSerial, [usersWithSerial]);

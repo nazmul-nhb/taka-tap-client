@@ -28,12 +28,18 @@ const AuthProvider = ({ children }) => {
             return data;
         } catch (error) {
             console.error(error);
-            toast.error("Registration Error!");
+
+            if (error.response) {
+                return { success: false, message: error.response.data?.message || "Registration Failed!", status: error.response.status || 500 };
+            }
+
+            // If the error doesn't have a response (e.g., network error)
+            return { success: false, message: error.response.data?.message || "Registration Error!", status: 500 };
         }
     };
 
     // console.log(currentUser);
-    
+
     const login = async (credential, pin) => {
         try {
             const { data } = await axiosPublic.post(`/auth/login`, { credential, pin });
@@ -41,13 +47,19 @@ const AuthProvider = ({ children }) => {
                 localStorage.setItem('taka-token', data?.token);
                 const decodedUser = jwtDecode(data?.token);
                 setCurrentUser(decodedUser);
-                return data
+                return data;
             } else {
-                return data
+                return data;
             }
         } catch (error) {
             console.error(error);
-            toast.error("Login Error!");
+
+            if (error.response) {
+                return { success: false, message: error.response.data?.message || "Login Failed!", status: error.response.status || 500 };
+            }
+
+            // If the error doesn't have a response (e.g., network error)
+            return { success: false, message: error.response.data?.message || "Login Error!", status: 500 };
         }
     };
 
@@ -56,7 +68,7 @@ const AuthProvider = ({ children }) => {
             localStorage.removeItem('taka-token');
             setCurrentUser(null);
             toast.success("Logged Out Successfully!");
-        } else{
+        } else {
             toast.error("No User Logged In!");
         }
     };

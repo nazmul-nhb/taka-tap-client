@@ -19,7 +19,7 @@ const useUpdateUser = () => {
         axiosSecure.patch(`/users/${email}`, user)
             .then(res => {
                 if (res.data.modifiedCount > 0) {
-                    toast.success(msg)
+                    toast.success(msg);
                     refetch();
                 }
             })
@@ -27,15 +27,15 @@ const useUpdateUser = () => {
                 console.error(error);
                 if (error) {
                     Swal.fire({
-                        title: 'Error!!',
+                        title: 'Error!',
                         text: error?.message,
                         icon: 'error',
                         confirmButtonText: 'Close',
                         color: '#fff',
-                        background: '#f15d24de'
-                    })
+                        background: '#f15d24ee'
+                    });
                 }
-            })
+            });
     }
 
     return updateUser;

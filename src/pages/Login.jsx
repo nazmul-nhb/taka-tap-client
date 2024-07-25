@@ -6,6 +6,7 @@ import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { FaEye, FaEyeSlash, FaMobileRetro } from "react-icons/fa6";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -44,15 +45,54 @@ const Login = () => {
         const { email, mobile, pin } = userInfo;
         const credential = useEmail ? email : mobile;
 
-        const res = await login(credential, pin);
+        try {
+            // show loading spinner
+            Swal.fire({
+                title: 'Logging in...',
+                text: 'Please wait while we log you in.',
+                allowOutsideClick: false,
+                background: '#f15d24ee',
+                color: '#fff',
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
 
-        if (res?.success) {
-            toast.success(res?.message);
-            navigate('/');
-        } else {
-            toast.error(res?.message);
+            const res = await login(credential, pin);
+
+            // hide loading spinner
+            Swal.hideLoading();
+            Swal.close();
+
+            if (res?.success) {
+                toast.success(res?.message);
+                navigate('/');
+            } else {
+                toast.error(res?.message);
+                Swal.fire({
+                    title: 'Error!',
+                    text: res?.message,
+                    icon: 'error',
+                    confirmButtonText: 'Close',
+                    confirmButtonColor: 'red',
+                    color: '#fff',
+                    background: '#f15d24ee'
+                });
+            }
+        } catch (error) {
+            console.error(error);
+            toast.error('Something Went Wrong!');
+            Swal.fire({
+                title: 'Error!',
+                text: 'Something Went Wrong!',
+                icon: 'error',
+                confirmButtonText: 'Close',
+                confirmButtonColor: 'red',
+                color: '#fff',
+                background: '#f15d24ee'
+            });
         }
-    }
+    };
 
     return (
         <section className="m-8">
@@ -71,7 +111,7 @@ const Login = () => {
                             </>
                         ) : (
                             <>
-                                    <label htmlFor="mobile" className="flex items-center gap-1 pl-2 sm:w-24"><FaMobileRetro /><span className="hidden sm:inline">Mobile</span></label>
+                                <label htmlFor="mobile" className="flex items-center gap-1 pl-2 sm:w-24"><FaMobileRetro /><span className="hidden sm:inline">Mobile</span></label>
                                 <input
                                     {...register("mobile", {
                                         required: { value: !useEmail, message: "Provide your mobile number." },

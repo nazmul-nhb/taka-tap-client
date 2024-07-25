@@ -7,12 +7,12 @@ import { MdEmail, MdSwitchAccount } from "react-icons/md";
 import { FaEye, FaEyeSlash, FaMobileRetro } from "react-icons/fa6";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { FaUserEdit } from "react-icons/fa";
-import moment from "moment";
+import Swal from "sweetalert2";
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
-    const { registerUser, login, currentUser } = useAuth();
-    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const { registerUser, currentUser } = useAuth();
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
@@ -27,29 +27,52 @@ const Register = () => {
     // register user
     const handleRegister = async (userInfo) => {
         try {
-            userInfo.account_status = 'pending';
-            userInfo.user_since = moment().format("YYYY-MM-DD HH:mm:ss");
+            // show loading spinner
+            Swal.fire({
+                title: 'Registering...',
+                text: 'Please wait for a while...',
+                allowOutsideClick: false,
+                background: '#f15d24ee',
+                color: '#fff',
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
 
             const res = await registerUser(userInfo);
 
+            // hide loading spinner
+            Swal.hideLoading();
+            Swal.close();
+
             if (res?.insertedId) {
-                reset();
                 toast.success("Registration Successful!");
                 toast.success("Wait for Admin Approval!");
-
-                // // after successful registration login the user
-                // const loginRes = await login(userInfo.mobile, userInfo.pin);
-                // if (loginRes?.success) {
-                //     toast.success(loginRes?.message);
-                //     navigate('/');
-                // } else {
-                //     toast.error(loginRes?.message);
-                // }
+                navigate('/login')
             } else {
                 toast.error(res?.message);
+                Swal.fire({
+                    title: 'Error!',
+                    text: res?.message,
+                    icon: 'error',
+                    confirmButtonText: 'Close',
+                    confirmButtonColor: 'red',
+                    color: '#fff',
+                    background: '#f15d24ee'
+                });
             }
         } catch (error) {
+            console.error(error);
             toast.error('Something Went Wrong!');
+            Swal.fire({
+                title: 'Error!',
+                text: 'Something Went Wrong!',
+                icon: 'error',
+                confirmButtonText: 'Close',
+                confirmButtonColor: 'red',
+                color: '#fff',
+                background: '#f15d24ee'
+            });
         }
     };
 

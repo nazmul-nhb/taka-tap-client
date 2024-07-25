@@ -19,21 +19,29 @@ const useMoneyCashIn = () => {
                     toast.success(res?.message);
                 } else {
                     toast.error(res?.message);
+                    Swal.fire({
+                        title: 'Error!',
+                        text: res?.message,
+                        icon: 'error',
+                        confirmButtonText: 'Close',
+                        color: '#fff',
+                        background: '#f15d24ee'
+                    });
                 }
             })
             .catch(error => {
                 console.error(error);
                 if (error) {
                     Swal.fire({
-                        title: 'Error!!',
+                        title: 'Error!',
                         text: error?.message,
                         icon: 'error',
                         confirmButtonText: 'Close',
                         color: '#fff',
-                        background: '#f15d24de'
-                    })
+                        background: '#f15d24ee'
+                    });
                 }
-            })
+            });
     }
 
     return moneyCashIn;
