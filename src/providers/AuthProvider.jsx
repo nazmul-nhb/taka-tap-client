@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { jwtDecode } from "jwt-decode";
 import { createContext, useEffect, useState } from "react";
 import useAxiosPublic from "../hooks/useAxiosPublic";
+import Swal from "sweetalert2";
 
 export const AuthContext = createContext(null);
 
@@ -32,12 +33,13 @@ const AuthProvider = ({ children }) => {
 			if (error.response) {
 				return {
 					success: false,
-					message: error.response.data?.message || "Registration Failed!",
+					message:
+						error.response.data?.message || "Registration Failed!",
 					status: error.response.status || 500,
 				};
 			}
 
-			// If the error doesn't have a response (e.g., network error)
+			// If the error doesn't have a response (e.g. network error)
 			return {
 				success: false,
 				message: error.response.data?.message || "Registration Error!",
@@ -75,7 +77,7 @@ const AuthProvider = ({ children }) => {
 				};
 			}
 
-			// If the error doesn't have a response (e.g., network error)
+			// If the error doesn't have a response (e.g. network error)
 			return {
 				success: false,
 				message: error.response.data?.message || "Login Error!",
@@ -86,9 +88,23 @@ const AuthProvider = ({ children }) => {
 
 	const logOut = () => {
 		if (currentUser) {
-			localStorage.removeItem("taka-token");
-			setCurrentUser(null);
-			toast.success("Logged Out Successfully!");
+			Swal.fire({
+				title: "Are You Sure?",
+				text: `Want to Log Out Now?`,
+				icon: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#ff0000",
+				cancelButtonColor: "#2a7947",
+				confirmButtonText: "Log Out!",
+				color: "#fff",
+				background: "#f15d24ee",
+			}).then((result) => {
+				if (result.isConfirmed) {
+					localStorage.removeItem("taka-token");
+					setCurrentUser(null);
+					toast.success("Logged Out Successfully!");
+				}
+			});
 		} else {
 			toast.error("No User Logged In!");
 		}

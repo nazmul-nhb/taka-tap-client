@@ -160,7 +160,7 @@ const CashIn = () => {
 						{...register("mobile", {
 							required: {
 								value: true,
-								message: "Mobile number is required!",
+								message: "Agent number is required!",
 							},
 							pattern: {
 								value: /^01\d{9}$/,
