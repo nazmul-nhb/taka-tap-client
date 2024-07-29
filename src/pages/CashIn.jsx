@@ -10,6 +10,7 @@ import { TbCoinTaka } from "react-icons/tb";
 import toast from "react-hot-toast";
 import moment from "moment";
 import useTransactionRequest from "../hooks/useTransactionRequest";
+import { Helmet } from "react-helmet-async";
 
 const CashIn = () => {
 	const [agentNumber, setAgentNumber] = useState("");
@@ -116,6 +117,9 @@ const CashIn = () => {
 
 	return (
 		<section className="m-4 md:m-8 flex flex-col lg:flex-row justify-between gap-6">
+			<Helmet>
+				<title>Cash In - TakaTap</title>
+			</Helmet>
 			<form
 				onSubmit={handleSubmit(handleCashInRequest)}
 				className="lg:w-2/5 flex flex-col gap-5 items-center w-full mx-auto bg-transOrange p-6 rounded-md shadow-md shadow-transYellow"

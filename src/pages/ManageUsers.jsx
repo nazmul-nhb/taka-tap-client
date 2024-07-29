@@ -6,6 +6,7 @@ import { FaUserCheck } from "react-icons/fa6";
 import TakaTable from "../components/TakaTable";
 import useUpdateUser from "../hooks/useUpdateUser";
 import Loader from "../shared/Loader";
+import { Helmet } from "react-helmet-async";
 
 const ManageUsers = () => {
     const axiosSecure = useAxiosSecure();
@@ -99,10 +100,13 @@ const ManageUsers = () => {
     if (isLoading) return <Loader />;
 
     return (
-        <section className="m-4 md:m-8">
-            <TakaTable data={userData} columns={userColumns} />
-        </section>
-    );
+		<section className="m-4 md:m-8">
+			<Helmet>
+				<title>Manage Users - TakaTap</title>
+			</Helmet>
+			<TakaTable data={userData} columns={userColumns} />
+		</section>
+	);
 };
 
 export default ManageUsers;

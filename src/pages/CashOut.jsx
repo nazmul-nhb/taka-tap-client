@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 import moment from "moment";
 import useTransactionRequest from "../hooks/useTransactionRequest";
 import useVerifyUser from "../hooks/useVerifyUser";
+import { Helmet } from "react-helmet-async";
 
 const CashOut = () => {
 	const [agentNumber, setAgentNumber] = useState("");
@@ -118,6 +119,9 @@ const CashOut = () => {
 
 	return (
 		<section className="m-4 md:m-8 flex flex-col lg:flex-row justify-between gap-6">
+			<Helmet>
+				<title>Cash Out - TakaTap</title>
+			</Helmet>
 			<form
 				onSubmit={handleSubmit(handleCashOutRequest)}
 				className="lg:w-2/5 flex flex-col gap-5 items-center w-full mx-auto bg-transOrange p-6 rounded-md shadow-md shadow-transYellow"

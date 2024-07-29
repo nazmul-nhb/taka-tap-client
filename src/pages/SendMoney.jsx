@@ -7,6 +7,7 @@ import moment from "moment";
 import useVerifyUser from "../hooks/useVerifyUser";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const SendMoney = () => {
 	const verifyPIN = useVerifyUser();
@@ -81,6 +82,9 @@ const SendMoney = () => {
 
 	return (
 		<section className="m-4 md:m-8 flex flex-col lg:flex-row justify-between gap-6">
+			<Helmet>
+				<title>Send Money - TakaTap</title>
+			</Helmet>
 			<form
 				onSubmit={handleSubmit(handleSendMoney)}
 				className="lg:w-2/5 flex flex-col gap-5 items-center w-full mx-auto bg-transOrange p-6 rounded-md shadow-md shadow-transYellow"
