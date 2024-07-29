@@ -73,7 +73,7 @@ const CashIn = () => {
 			accessorKey: "serial",
 		},
 		{
-			header: "Name",
+			header: "Agent Name",
 			accessorKey: "name",
 			cell: (cell) => {
 				const { mobile, name } = cell.row.original;
@@ -81,7 +81,7 @@ const CashIn = () => {
 					<>
 						{
 							<button
-								className={`flex items-center gap-0.5 hover:text-red-900 transition-all duration-500 mx-auto`}
+								className={`flex items-center gap-0.5 hover:text-red-900 transition-all duration-500`}
 								onClick={() => setAgentNumber(mobile)}
 							>
 								<FaUserTie /> {name}
@@ -100,7 +100,7 @@ const CashIn = () => {
 					<>
 						{
 							<button
-								className={`flex items-center gap-0.5 hover:text-red-900 transition-all duration-500 mx-auto`}
+								className={`flex items-center gap-0.5 hover:text-red-900 transition-all duration-500`}
 								onClick={() => setAgentNumber(mobile)}
 							>
 								<FaMobileRetro /> {mobile}

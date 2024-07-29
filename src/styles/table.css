@@ -36,10 +36,10 @@
     border-left: 1px solid #f2d6cbbe
 }
 
-.taka-table th:nth-last-child(-n+2),
+/* .taka-table th:nth-last-child(-n+2),
 .taka-table td:nth-last-child(-n+2) {
     text-align: center;
-}
+} */
 
 .taka-table td {
     padding: 6px 8px;
