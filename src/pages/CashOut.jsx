@@ -10,11 +10,13 @@ import { TbCoinTaka } from "react-icons/tb";
 import toast from "react-hot-toast";
 import moment from "moment";
 import useTransactionRequest from "../hooks/useTransactionRequest";
+import useVerifyUser from "../hooks/useVerifyUser";
 
 const CashOut = () => {
 	const [agentNumber, setAgentNumber] = useState("");
 	const axiosSecure = useAxiosSecure();
 	const sendRequest = useTransactionRequest();
+	const verifyPIN = useVerifyUser();
 
 	const {
 		register,
@@ -43,8 +45,8 @@ const CashOut = () => {
 			request_time: moment().format(),
 			request_status: "pending",
 		};
-
-		sendRequest(transInfo);
+        
+		verifyPIN(sendRequest, transInfo);
 	};
 
 	// show input errors as toasts
