@@ -42,11 +42,11 @@ const CashOut = () => {
 		const transInfo = {
 			amount: parseInt(info.amount),
 			agent: info.mobile,
-			request_type: "cash-out",
+			transaction_type: "cash-out",
 			request_time: moment().format(),
 			request_status: "pending",
 		};
-        
+
 		verifyPIN(sendRequest, transInfo);
 	};
 

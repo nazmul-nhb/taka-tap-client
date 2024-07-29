@@ -40,7 +40,7 @@ const CashIn = () => {
 		const transInfo = {
 			amount: parseInt(info.amount),
 			agent: info.mobile,
-			request_type: "cash-in",
+			transaction_type: "cash-in",
 			request_time: moment().format(),
 			request_status: "pending",
 		};

@@ -8,7 +8,7 @@ const useTransactionRequest = () => {
 	/**
 	 * Make a cash-in or cash-out Request!
 	 *
-	 * @param {object} transactionInfo - Transaction info must have: { amount, agent, request_type, request_time, request_status }.
+	 * @param {object} transactionInfo - Transaction info must have: { amount, agent, transaction_type, request_time, request_status }.
 	 */
 
 	const sendRequest = (transactionInfo) => {

@@ -60,8 +60,8 @@ const SendMoney = () => {
 	const handleSendMoney = (info) => {
 		const sendMoneyInfo = {
 			amount: parseInt(info.amount),
-			receiver: info.number,
-			request_type: "send-money",
+			receiver: info.mobile,
+			transaction_type: "send-money",
 			time: moment().format(),
 		};
 		// verify pin and send money
