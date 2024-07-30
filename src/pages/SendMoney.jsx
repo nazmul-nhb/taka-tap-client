@@ -27,13 +27,35 @@ const SendMoney = () => {
 		axiosSecure
 			.post(`/transactions/send`, info)
 			.then((res) => {
-				if (res?.success) {
-					toast.success(res?.data?.message);
+				const {
+					success,
+					message,
+					transactionID,
+					amount,
+					receiver,
+					charge,
+					current_balance,
+				} = res.data;
+				if (success) {
+					toast.success(message);
+					Swal.fire({
+						title: "Money Sent!",
+						html: `
+								<p>Receiver: ${receiver}</p>
+								<p>Amount: ${amount} BDT</p>
+								<p>Charge: ${charge} BDT</p>
+								<p>Transaction ID: ${transactionID}</p>
+								<p>Current Balance: ${current_balance}</p>`,
+						icon: "success",
+						confirmButtonText: "Close",
+						color: "#fff",
+						background: "#f15d24ee",
+					});
 				} else {
-					toast.error(res?.data?.message);
+					toast.error(message);
 					Swal.fire({
 						title: "Error!",
-						text: res?.data?.message,
+						text: message,
 						icon: "error",
 						confirmButtonText: "Close",
 						color: "#fff",
@@ -81,13 +103,13 @@ const SendMoney = () => {
 	}, [errors.mobile, errors.amount]);
 
 	return (
-		<section className="m-4 md:m-8 flex flex-col lg:flex-row justify-between gap-6">
+		<section className="m-4 md:m-8 flex flex-col md:flex-row justify-between gap-6">
 			<Helmet>
 				<title>Send Money - TakaTap</title>
 			</Helmet>
 			<form
 				onSubmit={handleSubmit(handleSendMoney)}
-				className="lg:w-2/5 flex flex-col gap-5 items-center w-full mx-auto bg-transOrange p-6 rounded-md shadow-md shadow-transYellow"
+				className="md:w-3/5 lg:w-2/5 flex flex-col gap-5 items-center w-full mx-auto bg-transOrange p-6 rounded-md shadow-md shadow-transYellow"
 			>
 				{/* Amount */}
 				<div className="w-full flex items-center gap-2 rounded-lg bg-transparent border-transYellow border shadow-md shadow-transYellow">
