@@ -17,7 +17,6 @@ const useVerifyUser = () => {
 		Swal.fire({
 			title: "Verify PIN!",
 			text: "Enter Your PIN!",
-			// icon: "info",
 			input: "password",
 			color: "#fff",
 			inputPlaceholder: "Enter Your PIN!",
@@ -31,15 +30,11 @@ const useVerifyUser = () => {
 			preConfirm: async (pin) => {
 				try {
 					const res = await axiosSecure.post(`/auth/verify`, { pin });
-					// console.log(secretResponse);
 					if (!res?.data?.success) {
 						toast.error(res?.data?.message);
 						Swal.showValidationMessage("Invalid PIN! Try Again!");
 						return false;
                     }
-                    // else {
-					// 	return toast.success(res?.data?.message);
-					// }
 				} catch (error) {
 					// console.error(error);
 					if (error?.response && error?.response?.status === 500) {

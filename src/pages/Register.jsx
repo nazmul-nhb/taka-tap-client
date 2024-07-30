@@ -108,7 +108,7 @@ const Register = () => {
 			</Helmet>
 			<form
 				onSubmit={handleSubmit(handleRegister)}
-				className="flex flex-col gap-5 items-center justify-between w-full mx-auto bg-transOrange p-6 rounded-md shadow-md shadow-transYellow"
+				className="md:w-3/5 lg:w-2/5 flex flex-col gap-5 items-center justify-between w-full mx-auto bg-transOrange p-6 rounded-md shadow-md shadow-transYellow"
 			>
 				{/* Name */}
 				<div className="w-full flex items-center gap-2 rounded-lg bg-transparent border-transYellow border shadow-md shadow-transYellow">
