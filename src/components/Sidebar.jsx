@@ -76,7 +76,7 @@ const Sidebar = ({ openSidebar, setOpenSidebar }) => {
                             end
                         >
                             {menu.icon}
-                            <h3 className={`${!openSidebar && "opacity-0 -translate-x-full overflow-hidden w-0"} text-sm md:text-xl origin-left whitespace-pre transition-all duration-700`}>{menu.title}</h3>
+                            <h3 className={`${!openSidebar && "opacity-0 -translate-x-full overflow-hidden w-0"} text-sm md:text-xl origin-left whitespace-pre transition-transform duration-700`}>{menu.title}</h3>
                         </NavLink>
                     ))
                 }
