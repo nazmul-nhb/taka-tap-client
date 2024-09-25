@@ -89,7 +89,7 @@ const Sidebar = ({ openSidebar, setOpenSidebar }) => {
                 className="flex items-center gap-2 font-semibold hover:text-orange-900 transition-all duration-500"
             >
                 <GiExitDoor className="text-3xl" title='Log Out' />
-                <span className={`${!openSidebar && "opacity-0 -translate-x-full overflow-hidden w-0"} whitespace-pre text-sm md:text-xl origin-left transition-all duration-1000`}>Logout</span>
+                <span className={`${!openSidebar && "opacity-0 -translate-x-full overflow-hidden w-0"} whitespace-pre text-sm md:text-xl origin-left transition-transform duration-1000`}>Logout</span>
             </button>
         </div>
     );
